@@ -7,7 +7,8 @@ data Resources = resourceType(str rType)
                     ;
 
 
-data Patterns
-     = Block(map[str, value] block)
-     | Map(map[str, value] mapStructure)
-     ;
+// Something to consider ...
+// data Patterns
+//      = Block(map[str, value] block)
+//      | Map(map[str, value] mapStructure)
+//      ;

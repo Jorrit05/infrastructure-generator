@@ -53,6 +53,7 @@ public str parseBlock(map[str,value] block) {
 public str transform(<str key, int n>) =  "<key> = <n>";
 public str transform(<str key,list[str] names>) =  "<key> = <parseListOfString(names)>";
 public str transform(<_, map[str, value] block>) = parseBlock(block);
+
 public str transform(<str key,str name>) = "<key> = \"<name>\"";
 public str transform(<key, dependency(str dependency)>) = "<key> = <dependency>";
 public str transform(<key, dependencyList(list[str] dependency)>) = "<key> = <parseDependencyList(dependency)>";
@@ -61,15 +62,9 @@ public str transform(str name) = "\"<name>\"";
 public str transform(list[str] names) = parseListOfString(names);
 public str transform(resourceType(str rType)) = rType;
 
-public str removeUntilFirstUnderscore(str S) {
-    // Could maybe be done better?
-    // Finds everything from start to string to and including the next underscore.
-    // It will do this recursively, hence the break.
-    while(/[^_]_+<rest:.*$>/ := S){
-        S = rest;
-        break;
-    };
-    return S;
+// Finds everything from start to and including the first underscore and removes it.
+public str removeUntilFirstUnderscore(str underscoreString) {
+    return /[^_]_+<rest:.*$>/ := underscoreString ? rest : underscoreString;
 }
 
 // Create .tf file from a string and target location
@@ -109,9 +104,4 @@ public list[map[str, value]] transformMultipleResources(map[Resources, set[str]]
         };
     };
     return retVal;
-}
-
-
-public void main() {
-    println(storage_account);
 }
