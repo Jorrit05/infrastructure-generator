@@ -44,4 +44,4 @@ jobs:
         -backend-config="key=msa-test"
 
     - name: Terraform Apply
-      run: terraform apply -auto-approve -var "resource_group_name=${{secrets.AZURE_RESOURCE_GROUP_NAME}}"
+      run: terraform apply -auto-approve
