@@ -44,4 +44,4 @@ jobs:
         # -backend-config="key=msa-test"
 
     - name: Terraform Apply
-      run: terraform apply -auto-approve
+      run: terraform destroy -auto-approve
