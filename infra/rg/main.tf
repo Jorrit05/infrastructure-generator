@@ -9,10 +9,16 @@ terraform {
       version = "=3.72.0"
     }
   }
+  backend "azurerm" {
+    key = "terraform.tfstate"
+    use_oidc = true
+  }
 }
 
-terraform {
-  backend "azurerm" {}
+provider "azurerm" {
+  use_oidc = true
+  skip_provider_registration = true
+  features {}
 }
 
 data "azurerm_client_config" "current" {}
