@@ -1,0 +1,48 @@
+
+name: 'Mitosis-deployment'
+run-name: 'test'
+on:
+  workflow_dispatch:
+    inputs:
+      terragrunt_action:
+          description: 'Terragrunt action'
+          required: true
+          default: 'plan'
+          type: choice
+          options:
+          - 'plan'
+          - 'apply'
+      work-folder:
+          description: 'Landing zone work folder'
+          required: true
+          type: choice
+          options:
+          - 'all'
+          - 'application-gateway'
+          - 'bastion'
+          - 'container-registry'
+          - 'key-vault'
+          - 'networking'
+          - 'shared-rg'
+          - 'vmss'
+      environment:
+          description: 'Environment'
+          required: true
+          type: choice
+          options:
+          - 'stg-weu-01'
+          - 'prd-weu-01'
+
+
+permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
+
+jobs:
+  call-reusable-workflow:
+    uses: ./.github/workflows/terragrunt.yml@main
+    with:
+      environment:  "${{ github.event.inputs.environment }}"
+      work-folder:  "${{ github.event.inputs.work-folder }}"
+      terragrunt_action:  "${{ github.event.inputs.terragrunt_action }}"
