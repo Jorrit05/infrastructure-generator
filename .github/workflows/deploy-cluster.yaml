@@ -1,6 +1,6 @@
 
 name: 'Mitosis-deployment'
-run-name: ${{ github.event.inputs.work-folder }}/${{ github.event.inputs.environment }}
+run-name: 'test'
 on:
   workflow_dispatch:
     inputs:
